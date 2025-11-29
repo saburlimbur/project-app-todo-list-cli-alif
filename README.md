@@ -1,7 +1,6 @@
 # To-Do List CLI (Golang)
 
-A simple Command Line Interface (CLI) application for managing a To-Do List using Golang and Cobra.  
-Data disimpan dalam file JSON: `data/todos.json`.
+A simple Command Line Interface (CLI) application for managing a To-Do List using Golang and Cobra.
 
 ---
 
@@ -18,7 +17,7 @@ go run .
 - [x] Add Todo
 
   ```sh
-  go run . add --title="<judul>" --desc="<deskripsi>" --status=<status> --priority=<priority>
+  go run . add --title="<title>" --desc="<description>" --status=<status> --priority=<priority>
   ```
 
 - [x] List Todo
@@ -30,11 +29,11 @@ go run .
 - [x] Update Todo Status
 
   ```sh
-  go run .
+  go run . update --id="<id>" --status="<status>"
   ```
 
 - [x] Delete Todo
 
   ```sh
-  go run .
+  go run . delete --id="<id>"
   ```
