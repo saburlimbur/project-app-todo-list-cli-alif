@@ -2,25 +2,28 @@ package cmd
 
 import (
 	"fmt"
-	"strconv"
 	"todolist_cli/service"
 
 	"github.com/spf13/cobra"
 )
 
+var todoID int
+var todoStatus string
+
 var updateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update the status of a todo by its ID",
-	Args:  cobra.ExactArgs(2), // 2 argument
+	// Args:  cobra.ExactArgs(2), // 2 argument
+	Args: cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
 		// parsing id
-		id, err := strconv.Atoi(args[0])
-		if err != nil {
-			fmt.Println("Error: ID must be a valid number.")
+		if todoID <= 0 {
+			fmt.Println("Error: ID must be a valid positive number.")
 			return
 		}
 
-		status := args[1]
+		id := todoID
+		status := todoStatus
 
 		todoService := service.NewTodoService()
 
@@ -35,4 +38,11 @@ var updateCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(updateCmd)
+
+	updateCmd.Flags().IntVarP(&todoID, "id", "i", 0, "ID of the todo item to update")
+	updateCmd.Flags().StringVarP(&todoStatus, "status", "s", "", "New status (pending, in-progress, complete)")
+
+	// wajib dgn flag
+	updateCmd.MarkFlagRequired("id")
+	updateCmd.MarkFlagRequired("status")
 }

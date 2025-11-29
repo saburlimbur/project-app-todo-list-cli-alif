@@ -29,7 +29,7 @@ go run .
 - [x] Update Todo Status
 
   ```sh
-  go run . update --id="<id>" --status=<status>
+  go run . update --id=<id> --status=<status>
   ```
 
 - [x] Delete Todo
