@@ -10,13 +10,13 @@ import (
 type TodoService interface {
 	AddTodo(title, description, status, priority string) error
 
-	// delete, done, update berdasarkan id
 	DeleteTodo(id int) error
 	UpdateTodoStatus(id int, status string) error
 
 	ListTodo() ([]model.Todos, error)
 }
 
+// menampung pointer receiver
 type todoService struct{}
 
 func NewTodoService() TodoService {

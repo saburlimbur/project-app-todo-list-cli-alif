@@ -3,8 +3,9 @@ package utils
 import (
 	"fmt"
 	"os"
-	"text/tabwriter"
 	"todolist_cli/model"
+
+	"github.com/olekukonko/tablewriter"
 )
 
 var (
@@ -28,24 +29,27 @@ func ColorStatus(status model.TodoStatus) string {
 }
 
 func PrintTodoTable(todos []model.Todos) {
-	w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
+	fmt.Println("==========================  List Tasks  ==========================")
 
-	fmt.Println("=================================  List Tasks  =================================")
+	table := tablewriter.NewWriter(os.Stdout)
 
-	fmt.Fprintf(w, "No\tTask\tStatus\tPriority\t\n")
-	fmt.Fprintf(w, "----\t----------------\t--------------\t-----------\t\n")
+	// Header manual
+	table.Append([]string{"No", "Task", "Status", "Priority"})
+
+	// Garis pembatas manual (harus append juga)
+	table.Append([]string{"---", "----------------", "--------------", "----------"})
 
 	for i, t := range todos {
-		fmt.Fprintf(
-			w,
-			"%d\t%s\t%s\t%s\t\n",
-			i+1,
+		row := []string{
+			fmt.Sprintf("%d", i+1),
 			t.Title,
 			ColorStatus(t.Status),
-			t.Priority,
-		)
+			string(t.Priority),
+		}
+		table.Append(row)
 	}
 
-	w.Flush()
-	fmt.Println("================================================================================")
+	table.Render()
+
+	fmt.Println("==================================================================")
 }
